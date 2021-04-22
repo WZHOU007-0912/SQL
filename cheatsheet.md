@@ -37,7 +37,7 @@ CREATE TABLE table_name
 )
 ```
 Common column attributes
-![截屏2021-04-21 下午9.28.05.png](https://boostnote.io/api/teams/DD9-w2C65/files/2e5badc5b664baf9dad9b6f27b704210c1b0d127b27a55105065b4b1c74a6449-%E6%88%AA%E5%B1%8F2021-04-21%20%E4%B8%8B%E5%8D%889.28.05.png)
+
 ## Alter the columns of the table
 MySQL won't allow you to change a column if that change would cause data to be lost.
 ### add a new column
