@@ -1,16 +1,8 @@
----
-title: "Cheatsheet"
-tags: ''
-output: pdf_document
----
-
 # Design Database
 ## Design data structure
 
 1. Identify all the data elements that need to be stored in the databse
 2. Break complex elements down into smaller components whenever that maskes sense (divide data elements as much as possible)
-![截屏2021-04-21 下午9.40.43.png](https://boostnote.io/api/teams/DD9-w2C65/files/8727feeab27b157ec1c1fa8b190230521b98c89ddad932f9a5b7acb209569ecb-%E6%88%AA%E5%B1%8F2021-04-21%20%E4%B8%8B%E5%8D%889.40.43.png)
-
 3. Identify the tables that will make up the system and to determine which data elements are assigned as columns in each table
 4. Define the relationships between the tables by identifying the primary and foreign keys: 
 
@@ -19,8 +11,6 @@ output: pdf_document
 - if two tables have a one-to-mamy relationship, may need to add a foreign key column to that table on the 'many' side and the foreign key must have the same data type as the primary key column it's related to
 - if it is many-to-many relationship, will need to define a linking table to relate them (the linking table doesn't usually have a primary key)
 - if two tables have a one-to-one relationship, they should be related by their primary keys
-
-![截屏2021-04-21 下午9.50.25.png](https://boostnote.io/api/teams/DD9-w2C65/files/8af580f4b6dbc43f7a67112af451b69a5434e1ced1e90517ac98d6f096bd539d-%E6%88%AA%E5%B1%8F2021-04-21%20%E4%B8%8B%E5%8D%889.50.25.png)
 
 5. Normalize the database to reduce data redundancy
 6. Identify the indexs that are needed for each table
@@ -179,9 +169,9 @@ CREATE TABLE vendors
 When a column is defined with a string type such as CHAR or VARCHAR, MySQL stores a numeric value for each character. Then, it uses a _character set_ to map the numeric values to the characters of the string.
 ### 3 commonly used character sets
 utf8mb4 character set is the default for MySQL 8.0 and later.
-![截屏2021-04-20 下午11.24.13.png](https://boostnote.io/api/teams/DD9-w2C65/files/61ab840b552ed30e4feb392c631ca561a64b5e4a483101d64c15590b9dd4994a-%E6%88%AA%E5%B1%8F2021-04-20%20%E4%B8%8B%E5%8D%8811.24.13.png)
+
 Every character set has a corresponding _collation_ that determines how the characters within the set are sorted. 
-![截屏2021-04-20 下午11.30.18.png](https://boostnote.io/api/teams/DD9-w2C65/files/f29af961ce9f93a95593ac8e6b7b1b1954622b61d8687a8aef5a08d61f889bf8-%E6%88%AA%E5%B1%8F2021-04-20%20%E4%B8%8B%E5%8D%8811.30.18.png)
+
 ### specify a character set and collation at the database level
 ```
 CREATE DATABASE db_name CHARSET char_set_name COLLATE collate_name
