@@ -264,11 +264,16 @@ Using a case-insensitive search `ILIKE` would help you find variations.
 **Typically, using `vachar` with an *n* value sufficient to handle outliers is a solid strategy.**
 
 ## Numbers
-- Integers
+- Integers  
   Whole numbers, both positive and negative, including zero.  
   Three integer types:
   1. `smallint`: (-32768 ,+ 32767)
   2. `integer`: (−2147483648 , +2147483647)
   3. `bigint`: (−9223372036854775808 , +9223372036854775807)
-- Auto-Incrementing Integers
-  When you add a column with a `serial` type, PostgreSQL will auto-increment the value in the column each time you insert a row, **starting with 1**, up to the maximum of each integer type.
+- Auto-Incrementing Integers  
+  When you add a column with a `serial` type, PostgreSQL will auto-increment the value in the column each time you insert a row, **starting with 1**, up to the maximum of each integer type.  
+Because the column is auto-incrementing, you don'y need to insert a number into that column when adding data.
+- Decimal Numbers
+  1. Fixed-Point Numbers: `numeric(precision, scale)`
+  
+  
