@@ -120,17 +120,17 @@ An index can improve performance when MySQL searches for rows in the table. If y
 ### create an (unique) index based on a single column
 ```
 CREATE UNIQUE INDEX index_name
-	ON table_name (column_name)
+       ON table_name (column_name)
 ```
 ### create an index based on two columns
 ```
 CREATE INDEX index_name
-	ON table_name (column_name1, column_name2)
+       ON table_name (column_name1, column_name2)
 ```
 ### create an index that’s sorted in descending order
 ```
 CREATE UNIQUE INDEX index_name
-	ON table_name (column_name DESC)
+       ON table_name (column_name DESC)
 ```
 ### drop an index
 ```
@@ -256,4 +256,12 @@ Using a case-insensitive search `ILIKE` would help you find variations.
 # Data Type
 ## Characters
 - `char(n)`
-  A fixed-length column where the character length is specified by n
+  A fixed-length column where the character length is specified by *n*. (Nowadays, `char(n)` is used infrequently.) if you insert fewer than *n* characters in any row, SQL (PostgreSQL) pads the rest of the column with spaces.
+- `varchar(n)`
+  A variable-length column where the *maximum* length is specified by *n*. In large databases, this practice saves considerable space.  
+- `text`
+  A variable-length column of unlimited length.
+**Typically, using `vachar` with an *n* value sufficient to handle outliers is a solid strategy.**
+
+## Numbers
+
