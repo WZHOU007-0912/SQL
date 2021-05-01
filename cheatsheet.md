@@ -1,30 +1,3 @@
-# Retrive Data
-```
-SELECT select_list
-FROM table_source
-WHERE search_condition
-ORDER BY order_by_list
-LIMIT row_limit
-```
-- The `WHERE` clause consits of one or more Boolean expressions that result in a true, false or null value.  
-- The `LIMIT` clause retrieves data that is limited to a specified number of rows.
-### `CONCAT` function to join strings
-```
-SELECT CONCAT(column_name1,'',column_name2) AS new_name
-```
-### `ALL`&`DISCTINCT`
-The `ALL` and `DISCTINCT` keywords specify whether or not duplicate rows are return.
-
-```
-" 
-| Operator      | Name          | Order of precedence |
-|-----------|:----------------:|---------------------:|
-| *         | Muptiplication   |         1            |
-| /         | Division         |         1            |
-| DIV       | Integer division |         1            |
-"
-```
-
 # Design Database
 ## Design data structure
 Database builders prefer to organize data using separate tables for each main entity the database manages in order to reduce redundant data.  
@@ -63,7 +36,7 @@ CREATE TABLE table_name
 	column_name data_type [column_attribute] [column_level_constraint]
 )
 ```
-Common column attributes
+
 
 ## Alter the columns of the table
 MySQL won't allow you to change a column if that change would cause data to be lost.
@@ -218,3 +191,69 @@ CHARSET char_set_name COLLATE collate_name
 ALTER TABLE table_name
 MODIFY column_name data_type CHARSET char_set_name COLLATE collate_name
 ```
+## `INSERT` rows into a Table
+```
+INSERT INTO table_name (first_column, second_column, third_column)
+VALUES(value1_1, value1_2, value1_3),
+      (value2_1, value2_2, value2_3);
+```
+do not forget the semicolon at the end of each statement
+
+
+
+# Retrive Data
+```
+SELECT select_list
+FROM table_source
+WHERE search_condition
+ORDER BY order_by_list
+LIMIT row_limit
+```
+The `LIMIT` clause retrieves data that is limited to a specified number of rows.  
+
+### `CONCAT` function to join strings
+```
+SELECT CONCAT(column_name1,',',column_name2) AS new_name
+```
+### `ALL`&`DISCTINCT`
+The `ALL` and `DISCTINCT` keywords specify whether or not duplicate rows are return.  
+The `DISCTINCT` keyword is used to find the unique values. This technique gives us the ability to ask, 'For each x in the table, what are all the y values?' - 'For each factory, what are all the chemicals it produces?'
+To use the `DISTINCT` or `ALL` keyword, code it immediately after the SELECT keyword.
+
+### `ORDER BY`
+`ASC`  
+`DESC`  
+
+### Filtering Rows with `WHERE`
+The `WHERE` clause consits of one or more *Boolean expressions* that result in a true, false or null value.  
+It allows you to find rows that match a specific value, a range of values, or multiple values based on criteria supplied via an operator. 
+
+```
+| Operator  | Function                          |
+|-----------|-----------------------------------|
+| =         | Equal to                          |
+| <> or !=  | Not equal to                      |
+| >         | Greater than                      |
+| <         | Less than                         | 
+| IN        | Match one of a set of values      |
+| LIKE      | Match a pattern (case sensitive)  |
+| ILIKE     | Match a pattern (case insensitive)|  
+
+```
+#### Using `LIKE` and `ILIKE` with `WHERE`
+- Percent sign (`%`) A wildcard matching one or more characters  
+- Underscore (`_`) A wildcard matching just one character  
+For example, if trying to find the word *baker*, the following `LIKE` partterns will match it:
+```
+LIKE 'b%'
+LIKE '%ak%'
+LIKE '_aker'
+LIKE 'ba_er'
+```
+Don’t assume that whoever typed the names of people, places, products, or other proper nouns always remembered to capitalize them.
+Using a case-insensitive search `ILIKE` would help you find variations.  
+
+# Data Type
+## Characters
+- `char(n)`
+  A fixed-length column where the character length is specified by n
