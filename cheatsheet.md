@@ -1,6 +1,17 @@
+# Retrive Data
+```
+SELECT select_list
+FROM table_source
+WHERE search_condition
+ORDER BY order_by_list
+LIMIT row_limit
+```
+
+
+
 # Design Database
 ## Design data structure
-
+Database builders prefer to organize data using separate tables for each main entity the database manages in order to reduce redundant data.  
 1. Identify all the data elements that need to be stored in the databse
 2. Break complex elements down into smaller components whenever that maskes sense (divide data elements as much as possible)
 3. Identify the tables that will make up the system and to determine which data elements are assigned as columns in each table
