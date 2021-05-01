@@ -15,15 +15,14 @@ SELECT CONCAT(column_name1,'',column_name2) AS new_name
 ### `ALL`&`DISCTINCT`
 The `ALL` and `DISCTINCT` keywords specify whether or not duplicate rows are return.
 
-```{r table2, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
-tabl <- "  # simple table creation here
-| Tables        | Are           | Cool  |
-|---------------|:-------------:|------:|
-| col 3 is      | right-aligned | $1600 |
-| col 2 is      | centered      |   $12 |
-| zebra stripes | are neat      |    $1 |
+```
+" 
+| Operator      | Name          | Order of precedence |
+|-----------|:----------------:|---------------------:|
+| *         | Muptiplication   |         1            |
+| /         | Division         |         1            |
+| DIV       | Integer division |         1            |
 "
-cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
 # Design Database
