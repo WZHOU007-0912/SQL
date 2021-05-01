@@ -6,8 +6,25 @@ WHERE search_condition
 ORDER BY order_by_list
 LIMIT row_limit
 ```
+- The `WHERE` clause consits of one or more Boolean expressions that result in a true, false or null value.  
+- The `LIMIT` clause retrieves data that is limited to a specified number of rows.
+### `CONCAT` function to join strings
+```
+SELECT CONCAT(column_name1,'',column_name2) AS new_name
+```
+### `ALL`&`DISCTINCT`
+The `ALL` and `DISCTINCT` keywords specify whether or not duplicate rows are return.
 
-
+```{r table2, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl <- "  # simple table creation here
+| Tables        | Are           | Cool  |
+|---------------|:-------------:|------:|
+| col 3 is      | right-aligned | $1600 |
+| col 2 is      | centered      |   $12 |
+| zebra stripes | are neat      |    $1 |
+"
+cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
+```
 
 # Design Database
 ## Design data structure
