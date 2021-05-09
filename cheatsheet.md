@@ -255,25 +255,38 @@ Using a case-insensitive search `ILIKE` would help you find variations.
 
 # Data Type
 ## Characters
-- `char(n)`
-  A fixed-length column where the character length is specified by *n*. (Nowadays, `char(n)` is used infrequently.) if you insert fewer than *n* characters in any row, SQL (PostgreSQL) pads the rest of the column with spaces.
-- `varchar(n)`
+- `CHAR(n)`
+  A fixed-length column where the character length is specified by *n*. (Nowadays, `CHAR(n)` is used infrequently.) if you insert fewer than *n* characters in any row, SQL (PostgreSQL) pads the rest of the column with spaces.
+- `VARCHAR(n)`
   A variable-length column where the *maximum* length is specified by *n*. In large databases, this practice saves considerable space.  
-- `text`
+- `TEXT`
   A variable-length column of unlimited length.
-**Typically, using `vachar` with an *n* value sufficient to handle outliers is a solid strategy.**
+**Typically, using `VARCHAR` with an *n* value sufficient to handle outliers is a solid strategy.**
 
 ## Numbers
 - Integers  
   Whole numbers, both positive and negative, including zero.  
   Three integer types:
-  1. `smallint`: (-32768 ,+ 32767)
-  2. `integer`: (−2147483648 , +2147483647)
-  3. `bigint`: (−9223372036854775808 , +9223372036854775807)
+  1. `SMALLINT`: (-32768 ,+ 32767)
+  2. `INTEGER`: (−2147483648 , +2147483647)
+  3. `BIGINT`: (−9223372036854775808 , +9223372036854775807)
 - Auto-Incrementing Integers  
-  When you add a column with a `serial` type, PostgreSQL will auto-increment the value in the column each time you insert a row, **starting with 1**, up to the maximum of each integer type.  
+  When you add a column with a `SERIAL` type, PostgreSQL will auto-increment the value in the column each time you insert a row, **starting with 1**, up to the maximum of each integer type.  
 Because the column is auto-incrementing, you don'y need to insert a number into that column when adding data.
 - Decimal Numbers
-  1. Fixed-Point Numbers: `numeric(precision, scale)`
-  
-  
+  1. numeric, decimal (fixed-point): `NUMERIC(precision, scale)` 
+  2. `REAL` (floating): floating-6 decimal digits precision point
+  3. `DOUBLE PRECISION` (floating): floating-15 decimal digits precision point
+## Dates and Times
+  -  `TIMESTAMP WITH TIME ZONE`: records date and time which are useful for a range of situations you might track
+  -  `DATE`: records just the date
+  -  `TIME`: records just the time
+  -  `INTERVAL`: holds the value representing a unit of time expressed in the format *quantity unit*, e.g.: *12 days*, *8 hours*.
+## Transforming Values from One Type to Another with `CAST`
+The CAST() function only succeeds when the target data type can accommodate the original value. Casting an integer as text is possible, because the character types can include numbers. Casting text with letters of the alphabet as a number is not.
+```
+SELECT CAST(timestamp_column AS VARCHAR(10))
+```
+# Importing and Exporting Data
+
+
