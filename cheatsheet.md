@@ -288,5 +288,9 @@ The CAST() function only succeeds when the target data type can accommodate the 
 SELECT CAST(timestamp_column AS VARCHAR(10))
 ```
 # Importing and Exporting Data
+## Working with Delimited Text Files
+A delimited text file contains rows of data, and each row represents one row in a table. In each row, a character separates, or delimits, each data column.  
+The character that most commonly used in separating each data colimn is the comma; hence we have *comma-separated values* i.e. *CSV* file.   
+Notice that a comma separates each piece of data -— first name, last name, street, town, state, and phone —- without any spaces. The commas tell the software to treat each item as a separate column, either upon import or export.  
 
 
