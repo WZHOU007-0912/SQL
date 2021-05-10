@@ -322,9 +322,9 @@ SELECT CAST(timestamp_column AS VARCHAR(10))
 
 A delimited text file contains rows of data, and each row represents one row in a table. In each row, a character separates, or delimits, each data column.  
 The character that most commonly used in separating each data colimn is the comma; hence we have *comma-separated values* i.e. *CSV* file.
-Notice that a comma separates each piece of data -— first name, last name, street, town, state, and phone —- without any spaces. The commas tell the software to treat each item as a separate column, either upon import or export.
+Notice that a comma separates each piece of data — first name, last name, street, town, state, and phone — without any spaces. The commas tell the software to treat each item as a separate column, either upon import or export.
 
-### Using COPY to Import DATA
+### Using COPY to Import Data
 
 ```sql
 COPY table_name
@@ -332,7 +332,20 @@ FROM file_path
 WITH(FORMAT CSV, HEADER)
 ```
 
+### Using COPY to Export Data
+
+```sql
+COPY table_name
+TO file_path
+WITH (FORMAT CSV, HEADER)
+```
+
 1. Input and output file format:  
    Use the `FORMAT` *format_name* option to specify the type of reading/writing file, such as *CSV* and *TEXT*. 
 2. Presence of a header row:  
-   
+   On import, use `HEADER` to specify that source file has a header row and tell the database to **skip** the header, as you don't want the column names in the header to become part of the data in the table.  
+   On export, use `HEADER` tells the database to **include** the column names as a header row in the output file.
+
+## Basic Math
+
+### Division and Modulo
