@@ -2,8 +2,6 @@
 
 ## Design Database
 
-### Design data structure
-
 Database builders prefer to organize data using separate tables for each main entity.
 
 1. Identify all the data elements that need to be stored in the databse
@@ -11,15 +9,19 @@ Database builders prefer to organize data using separate tables for each main en
 2. Break complex elements down into smaller components whenever that maskes sense (divide data elements as much as possible)
 3. Identify the tables that will make up the system and to determine which data elements are assigned as columns in each table
 4. Define the relationships between the tables by identifying the primary and foreign keys:
+  
+   - each table should have a primary key that uniquely identifies each row
 
-- each table should have a primary key that uniquely identifies each row
-- if a suitable column doesn't exist for a primary key, can create an ID column that is incremented by one for each row as the primary key
-- if two tables have a one-to-mamy relationship, may need to add a foreign key column to that table on the 'many' side and the foreign key must have the same data type as the primary key column it's related to
-- if it is many-to-many relationship, will need to define a linking table to relate them (the linking table doesn't usually have a primary key)
-- if two tables have a one-to-one relationship, they should be related by their primary keys
+   - if a suitable column doesn't exist for a primary key, can create an ID column that is incremented by one for each row as the primary key
+  
+   - if two tables have a one-to-mamy relationship, may need to add a foreign key column to that table on the 'many' side and the foreign key must have the same data type as the primary key column it's related to
+  
+   - if it is many-to-many relationship, will need to define a linking table to relate them (the linking table doesn't usually have a primary key)
+  
+   - if two tables have a one-to-one relationship, they should be related by their primary keys
 
-1. Normalize the database to reduce data redundancy
-2. Identify the indexs that are needed for each table
+5. Normalize the database to reduce data redundancy
+6. Identify the indexs that are needed for each table
 
 ## Create Database,Tables, and Indexs
 
@@ -32,7 +34,7 @@ CREATE DATABASE IF NOT EXISTS db_name
 
 ```
 
-### drop the database if exist
+### Drop the database if exist
 
 ```sql
 DROP DATABASE IF EXIST db_name
@@ -44,7 +46,7 @@ DROP DATABASE IF EXIST db_name
 USE db_name
 ```
 
-## Create table
+### Create table
 
 ```sql
 CREATE TABLE table_name
@@ -53,11 +55,7 @@ column_name data_type [column_attribute] [column_level_constraint]
 )
 ```
 
-## Alter the columns of the table
-
-MySQL won't allow you to change a column if that change would cause data to be lost.
-
-### add a new column
+### Add a new column
 
 ```sql
 ALTER TABLE [db_name.]table_name
@@ -66,7 +64,7 @@ ADD column_name data_type [cloumn_attribute]
 }
 ```
 
-### drop a column
+### Drop a column
 
 ```sql
 ALTER TABLE [db_name.]table_name
@@ -75,9 +73,9 @@ DROP column_name
 }
 ```
 
-### change the length / type/default value of a column
+### Change the length / type / default value of a column
 
-if you don't include an existing attribute for a column, that attribute wpi;d be dropped from the column definition.
+if you don't include an existing attribute for a column, that attribute would be dropped from the column definition.
 The exception are attributes that define indexes, including the `PRIMARY KEY` and `UNIQUE` attributes.
 
 ```sql
@@ -87,7 +85,7 @@ MODIFY column_name data_type [column_attribute]
 }
 ```
 
-### change the name of a column
+### Change the name of a column
 
 ```sql
 ALTER TABLE [db_name.]table_name
@@ -96,18 +94,14 @@ RENAME column_name TO new_column_name
 }
 ```
 
-## Alter the constraints of a table
-
-To drop a foreign key constraint, you must know its name. If you don’t know its name, you can use MySQL Workbench to look up the name.
-
-### add a primary key constraint
+### Add a primary key constraint
 
 ```sql
 ALTER TABLE [db_name.]table_name
 ADD PRIMARY KEY (column_name)
 ```
 
-### add a foreign key constraint
+### Add a foreign key constraint
 
 ```sql
 ALTER TABLE [db_name.]table_name
@@ -115,73 +109,74 @@ ADD CONSTRAINT constraint_name
 FOREIGN KEY (column_name) REFERENCES table_name (column_name)
 ```
 
-### drop a primary key constraint
+### Drop a primary key constraint
 
 ```sql
 ALTER TABLE [db_name.]table_name
 DROP PRIMARY KEY
 ```
 
-### drop a foreign key constraint
+### Drop a foreign key constraint
 
 ```sql
 ALTER TABLE [db_name.]table_name
 DROP FOREIGN KEY column_name
 ```
 
-## Alter the table
-
-When you issue a `DROP TABLE` statement, MySQL checks to see if other tables depend on the table you’re trying to delete. If they do, MySQL won’t allow the deletion.
-
-### rename a table
+### Rename a table
 
 ```sql
 RENAME TABLE table_name TO new_table_name
 ```
 
-### delete all data from a table
+### Delete all data from a table
 
 ```sql
 TRUNCATE TABLE table_name
 ```
 
-### delete a table from the database
+### Delete a table from the database
 
 ```sql
 DROP TABLE [db_name.]table_name
 ```
 
-## Work with indexes
-
-MySQL automatically creates an index for primary key, foreign key, and unique constraints.
-An index can improve performance when MySQL searches for rows in the table. If you use a column frequently, adding an index should improve the performance of the database.
-
-### create an (unique) index based on a single column
+### Create an (unique) index based on a single column
 
 ```sql
 CREATE UNIQUE INDEX index_name
        ON table_name (column_name)
 ```
 
-### create an index based on two columns
+### Create an index based on two columns
 
 ```sql
 CREATE INDEX index_name
        ON table_name (column_name1, column_name2)
 ```
 
-### create an index that’s sorted in descending order
+### Create an index that’s sorted in descending order
 
 ```sql
 CREATE UNIQUE INDEX index_name
        ON table_name (column_name DESC)
 ```
 
-### drop an index
+### Drop an index
 
 ```sql
 DROP INDEX index_name ON table_name
 ```
+
+### Insert rows into a Table
+
+```sql
+INSERT INTO table_name (first_column, second_column, third_column)
+VALUES(value1_1, value1_2, value1_3),
+      (value2_1, value2_2, value2_3);
+```
+
+do not forget the semicolon at the end of each statement
 
 ## Script Example
 
@@ -218,51 +213,6 @@ REFERENCE general_accounts (account_number)
 );
 ```
 
-## Work with character sets & collations
-
-When a column is defined with a string type such as CHAR or VARCHAR, MySQL stores a numeric value for each character. Then, it uses a _character set_ to map the numeric values to the characters of the string.
-
-### 3 commonly used character sets
-
-utf8mb4 character set is the default for MySQL 8.0 and later.
-
-Every character set has a corresponding _collation_ that determines how the characters within the set are sorted.
-
-### specify a character set and collation at the database level
-
-```sql
-CREATE DATABASE db_name CHARSET char_set_name COLLATE collate_name
-```
-
-```sql
-ALTER DATABASE db_name CHARSET char_set_name COLLATE collate_name
-```
-
-### specify a character set and collation at table level
-
-```sql
-CREATE TABLE table_name
-(
-column_name data_type [column attribute]
-)
-CHARSET char_set_name COLLATE collate_name
-```
-
-```sql
-ALTER TABLE table_name
-MODIFY column_name data_type CHARSET char_set_name COLLATE collate_name
-```
-
-## `INSERT` rows into a Table
-
-```sql
-INSERT INTO table_name (first_column, second_column, third_column)
-VALUES(value1_1, value1_2, value1_3),
-      (value2_1, value2_2, value2_3);
-```
-
-do not forget the semicolon at the end of each statement
-
 ## Retrive Data
 
 ```sql
@@ -275,24 +225,24 @@ LIMIT row_limit
 
 The `LIMIT` clause retrieves data that is limited to a specified number of rows.  
 
-### `CONCAT` function to join strings
+### CONCAT function to join strings
 
 ```sql
 SELECT CONCAT(column_name1,',',column_name2) AS new_name
 ```
 
-### `ALL`&`DISCTINCT`
+### ALL & DISCTINCT keywords
 
 The `ALL` and `DISCTINCT` keywords specify whether or not duplicate rows are return.  
 The `DISCTINCT` keyword is used to find the unique values. This technique gives us the ability to ask, 'For each x in the table, what are all the y values?' - 'For each factory, what are all the chemicals it produces?'
 To use the `DISTINCT` or `ALL` keyword, code it immediately after the SELECT keyword.
 
-### `ORDER BY`
+### ORDER BY
 
 `ASC`  
 `DESC`  
 
-### Filtering Rows with `WHERE`
+### Filtering Rows with WHERE
 
 The `WHERE` clause consits of one or more *Boolean expressions* that result in a true, false or null value.  
 It allows you to find rows that match a specific value, a range of values, or multiple values based on criteria supplied via an operator.
@@ -307,10 +257,10 @@ It allows you to find rows that match a specific value, a range of values, or mu
 | LIKE      | Match a pattern (case sensitive)  |
 | ILIKE     | Match a pattern (case insensitive)|
 
-#### Using `LIKE` and `ILIKE` with `WHERE`
+### Using LIKE and ILIKE with WHERE
 
 - Percent sign (`%`) A wildcard matching one or more characters
-- Underscore (`_`) A wildcard matching just one character
+- Underscore (`_`) A wildcard matching just one character  
 For example, if trying to find the word *baker*, the following `LIKE` partterns will match it:
 
 ```sql
@@ -325,7 +275,7 @@ Using a case-insensitive search `ILIKE` would help you find variations.
 
 ## Data Type
 
-## Characters
+### Characters
 
 - `CHAR(n)`
   A fixed-length column where the character length is specified by *n*. (Nowadays, `CHAR(n)` is used infrequently.) if you insert fewer than *n* characters in any row, SQL (PostgreSQL) pads the rest of the column with spaces.
@@ -335,7 +285,7 @@ Using a case-insensitive search `ILIKE` would help you find variations.
   A variable-length column of unlimited length.
 **Typically, using `VARCHAR` with an *n* value sufficient to handle outliers is a solid strategy.**
 
-## Numbers
+### Numbers
 
 - Integers  
   Whole numbers, both positive and negative, including zero.  
@@ -351,14 +301,14 @@ Because the column is auto-incrementing, you don'y need to insert a number into 
   2. `REAL` (floating): floating-6 decimal digits precision point
   3. `DOUBLE PRECISION` (floating): floating-15 decimal digits precision point
 
-## Dates and Times
+### Dates and Times
 
 - `TIMESTAMP WITH TIME ZONE`: records date and time which are useful for a range of situations you might track
 - `DATE`: records just the date
 - `TIME`: records just the time
 - `INTERVAL`: holds the value representing a unit of time expressed in the format *quantity unit*, e.g.: *12 days*, *8 hours*.
 
-## Transforming Values from One Type to Another with `CAST`
+### Transforming Values from One Type to Another with CAST
 
 The CAST() function only succeeds when the target data type can accommodate the original value. Casting an integer as text is possible, because the character types can include numbers. Casting text with letters of the alphabet as a number is not.
 
@@ -368,8 +318,21 @@ SELECT CAST(timestamp_column AS VARCHAR(10))
 
 ## Importing and Exporting Data
 
-## Working with Delimited Text Files
+### Working with Delimited Text Files
 
 A delimited text file contains rows of data, and each row represents one row in a table. In each row, a character separates, or delimits, each data column.  
 The character that most commonly used in separating each data colimn is the comma; hence we have *comma-separated values* i.e. *CSV* file.
 Notice that a comma separates each piece of data -— first name, last name, street, town, state, and phone —- without any spaces. The commas tell the software to treat each item as a separate column, either upon import or export.
+
+### Using COPY to Import DATA
+
+```sql
+COPY table_name
+FROM file_path
+WITH(FORMAT CSV, HEADER)
+```
+
+1. Input and output file format:  
+   Use the `FORMAT` *format_name* option to specify the type of reading/writing file, such as *CSV* and *TEXT*. 
+2. Presence of a header row:  
+   
