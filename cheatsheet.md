@@ -346,6 +346,21 @@ WITH (FORMAT CSV, HEADER)
    On import, use `HEADER` to specify that source file has a header row and tell the database to **skip** the header, as you don't want the column names in the header to become part of the data in the table.  
    On export, use `HEADER` tells the database to **include** the column names as a header row in the output file.
 
-## Basic Math
+## Joining types
 
-### Division and Modulo
+### INNER JOIN
+
+Returns rows from both tables where matching values are found in the joined columns of both tables. 
+
+### LEFT JOIN
+
+Returns every row from the left table plus rows rows that match values in the joined column from the right table. When a left table row dosen't have a match in the right table, the result shows no values from the right table.
+
+### RIGHT JOIN
+
+Returns every row from the right table plus rows that match joined column from the left table. 
+
+### FULL OUTER JOIN
+
+Returns every row 
+![full join]()
