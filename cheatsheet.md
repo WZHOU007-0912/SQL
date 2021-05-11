@@ -362,5 +362,7 @@ Returns every row from the right table plus rows that match joined column from t
 
 ### FULL OUTER JOIN
 
-Returns every row 
-![full join]()
+Returns every row from both tables and matches rows
+
+![full join](https://github.com/WZHOU007-0912/images/blob/master/full_join.png)
+
