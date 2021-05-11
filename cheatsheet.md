@@ -350,7 +350,7 @@ WITH (FORMAT CSV, HEADER)
 
 ### INNER JOIN
 
-Returns rows from both tables where matching values are found in the joined columns of both tables. 
+Returns rows from both tables where matching values are found in the joined columns of both tables.
 
 ### LEFT JOIN
 
@@ -358,11 +358,12 @@ Returns every row from the left table plus rows rows that match values in the jo
 
 ### RIGHT JOIN
 
-Returns every row from the right table plus rows that match joined column from the left table. 
+Returns every row from the right table plus rows that match joined column from the left table.
 
 ### FULL OUTER JOIN
 
-Returns every row from both tables and matches rows
+Returns every row from both tables and matches rows; then join the rows where values in the joined column.
 
 ![full join](https://github.com/WZHOU007-0912/images/blob/master/full_join.png)
 
+### Using NULL to Find Rows with Missing Values
