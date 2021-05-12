@@ -129,10 +129,17 @@ DROP FOREIGN KEY column_name
 RENAME TABLE table_name TO new_table_name
 ```
 
-### Delete all data from a table
+### Delete a row from a table
 
 ```sql
-TRUNCATE TABLE table_name
+DELETE FROM table_name
+WHERE expression
+```
+
+### Delete all rows/data from a table
+
+```sql
+DELETE FROM table_name
 ```
 
 ### Delete a table from the database
@@ -177,6 +184,13 @@ VALUES(value1_1, value1_2, value1_3),
 ```
 
 do not forget the semicolon at the end of each statement
+
+## Update table values
+
+```sql
+UPDATE table_name
+SET column = value
+```
 
 ## Script Example
 
@@ -303,10 +317,23 @@ Because the column is auto-incrementing, you don'y need to insert a number into 
 
 ### Dates and Times
 
-- `TIMESTAMP WITH TIME ZONE`: records date and time which are useful for a range of situations you might track
-- `DATE`: records just the date
-- `TIME`: records just the time
-- `INTERVAL`: holds the value representing a unit of time expressed in the format *quantity unit*, e.g.: *12 days*, *8 hours*.
+- **timestampe with time zone**: records date and time which are useful for a range of situations you might track
+- **date**: records only the date
+- **time**: records only the time
+- **interval**: holds the value representing a unit of time expressed in the format *quantity unit*, e.g.: *12 days*, *8 hours*.
+
+#### Extracting the components of a timestamp value
+
+```sql
+date_part(text, value)
+```
+
+The function takes two inputs. The first is a string in text format that represents the part of the date or time **to extract**. The second is the *date*, *time*, or *timestamp* value.
+
+```sql
+SELECT
+    date_part('year', '2019-12-01 18:37:12 EST'::timestamptz) AS "year"
+```
 
 ### Transforming Values from One Type to Another with CAST
 
@@ -341,7 +368,7 @@ WITH (FORMAT CSV, HEADER)
 ```
 
 1. Input and output file format:  
-   Use the `FORMAT` *format_name* option to specify the type of reading/writing file, such as *CSV* and *TEXT*. 
+   Use the `FORMAT` *format_name* option to specify the type of reading/writing file, such as *CSV* and *TEXT*.
 2. Presence of a header row:  
    On import, use `HEADER` to specify that source file has a header row and tell the database to **skip** the header, as you don't want the column names in the header to become part of the data in the table.  
    On export, use `HEADER` tells the database to **include** the column names as a header row in the output file.
@@ -390,5 +417,26 @@ WHERE column_condition
 GROUP BY column_name
 HAVING [aggregate_function(column_name) condition]
 ORDER BY column_name
+```
+
+## Ranking: rank() and dense_rank()
+
+The difference between `rank()` and `dense_rank()` is the way they handle the **next rank value** after a **tie**: `rank()` includes a gap in the rank order, but `dense_rank()` does not.
+
+### Ranking within subgroups with PARTITION BY
+
+```sql
+SELECT column_name
+rank() OVER (PARTITION BY column1_name ORDER BY column2_name)
+FROM table_name
+```
+
+## Reclassifying value with CASE
+
+```sql
+CASE WHEN condition1 THEN result1
+     WHEN condition2 THEN result2
+     ELSE result3
+END
 ```
 
