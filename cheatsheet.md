@@ -367,3 +367,28 @@ Returns every row from both tables and matches rows; then join the rows where va
 ![full join](https://github.com/WZHOU007-0912/images/blob/master/full_join.png)
 
 ### Using NULL to Find Rows with Missing Values
+
+```sql
+SELECT column_name
+FROM table1_name LEFT JOIN table2_name
+ON column1 = column2
+WHERE coumn1 IS NULL
+```
+
+## Grouping and Summarizing
+
+### HAVING vs. WHERE
+
+For aggregate functins, such as `sum()`, can't be used within a `WHERE` clasue because they operate at a row level, and aggregate functions work across rows.  
+The `HAVING` clause places conditions on **groups** created by aggregating. When use `HAVING` clause, insert it **after** `GROUP BY`.
+
+```sql
+SELECT table_name
+FROM table1_name JOIN table2_name
+ON column1 = coumn2
+WHERE column_condition
+GROUP BY column_name
+HAVING [aggregate_function(column_name) condition]
+ORDER BY column_name
+```
+
