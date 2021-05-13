@@ -440,3 +440,48 @@ CASE WHEN condition1 THEN result1
 END
 ```
 
+## Work with Text
+
+### Regular Expressions
+
+<https://regexr.com/>
+
+| Notation  | Description                 |
+|-----------|:---------------------------------:|
+| .|any character except newline|
+| \w\d\s|any word, any digit, a space|
+|\W\D\S| not word, digit, whitespace|
+|\n|newline character|
+|[abc]|any of a,b,or c|
+|[^abc]|not a,b,or c|
+|[a-g]|character between a & g|
+|$|match at the end of a string|
+|\t|tab character|
+|?|get the preceding match zero or one time|
+|*|get the preceding match zero or more time|
+|+|get the preceding match one or more time|
+|{m}|get the preceding match exactly *m* times|
+|{m,n}|get the preceding match betweem *m* and *n* times|
+|(abc)|capture group|
+|
+
+### regexp_match()
+
+```sql
+SELECT column_name,
+       regexp_match(original_text, 'notation')
+FROM table_name
+```
+
+regexp_match() returns the first match it finds by default.
+
+### regexp_matches()
+
+```sql
+SELECT column_name,
+       regexp_matches(original_text, 'notation', 'g')
+FROM table_name
+```
+
+regexp_matches() returns each match the expression finds as a row in the results.
+
